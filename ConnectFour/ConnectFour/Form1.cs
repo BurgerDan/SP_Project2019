@@ -19,8 +19,7 @@ namespace ConnectFour
         private int turn;
         private int turnCounter = 0;
         private Boolean next;
-
-
+        private Boolean gameStart = false;
 
         public ConnectFour()
         {
@@ -119,51 +118,55 @@ namespace ConnectFour
                         return false;
             return true;
         }
-
         private void ConnectFour_MouseClick(object sender, MouseEventArgs e)
         {
-            int colIndex = this.ColumnNumber(e.Location);
-            //Console.WriteLine(e.Location); //Debugging
-            if(colIndex != -1)
+            if (gameStart)
             {
-                int rowIndex = this.EmptyRow(colIndex);
-                if (rowIndex != -1)
+                int colIndex = this.ColumnNumber(e.Location);
+                //Console.WriteLine(e.Location); //Debugging
+                if (colIndex != -1)
                 {
-                    //These fill the board with the right color
-                    this.board[rowIndex, colIndex] = this.turn;
-                    if (this.turn == 1)
+                    int rowIndex = this.EmptyRow(colIndex);
+                    if (rowIndex != -1)
                     {
-                        Graphics g = this.CreateGraphics();
-                        g.FillEllipse(Brushes.SlateGray, 32 + 48 * colIndex, 32 + 48 * rowIndex, 32, 32);
-                        turnDisplay.Text = "Computer's Turn next";
-                        turnCounter++;
-                    }
-                    if (this.turn == 2)
-                    {
-                        Graphics g = this.CreateGraphics();
-                        g.FillEllipse(Brushes.HotPink, 32 + 48 * colIndex, 32 + 48 * rowIndex, 32, 32);
-                        turnDisplay.Text = "Player's Turn next";
-                        turnCounter++;
+                        //These fill the board with the right color
+                        this.board[rowIndex, colIndex] = this.turn;
+                        if (this.turn == 1)
+                        {
+                            Graphics g = this.CreateGraphics();
+                            g.FillEllipse(Brushes.SlateGray, 32 + 48 * colIndex, 32 + 48 * rowIndex, 32, 32);
+                            turnDisplay.Text = "Computer's Turn next";
+                            turnCounter++;
+                        }
+                        if (this.turn == 2)
+                        {
+                            Graphics g = this.CreateGraphics();
+                            g.FillEllipse(Brushes.HotPink, 32 + 48 * colIndex, 32 + 48 * rowIndex, 32, 32);
+                            turnDisplay.Text = "Player's Turn next";
+                            turnCounter++;
+                        }
                     }
                 }
-            }
-            int winner = WinnerPlayer(this.turn);
-            if (winner != -1)
-            {
-                string winsy = (winner == 1) ? "Player" : "Computer";
-                MessageBox.Show(winsy + " wins");
-                Application.Restart();
-            }
+                int winner = WinnerPlayer(this.turn);
+                if (winner != -1)
+                {
+                    string winsy = (winner == 1) ? "Player" : "Computer";
+                    MessageBox.Show(winsy + " wins");
+                    Application.Restart();
+                }
 
-            if (this.turn == 1)
-                turn = 2;
-            else
-                turn = 1;
-            if(turnCounter >0)
-            {
-                PlayerButton.Enabled = false;
-                PCButton.Enabled = false;
+                if (this.turn == 1)
+                    turn = 2;
+                else
+                    turn = 1;
+                if (turnCounter > 0)
+                {
+                    PlayerButton.Enabled = false;
+                    PCButton.Enabled = false;
+                }
             }
+            else
+                MessageBox.Show("Please press play when you are ready to begin");
         }
         //Series of checks to see if a win state is found, this could probably be refactored into a better method but we can do that later
         private int WinnerPlayer(int playerToCheck)
@@ -253,6 +256,18 @@ namespace ConnectFour
         public ConnectFour copy()
         {
             return new ConnectFour(board, this.next);
+        }
+        private void playStart_Click(object sender, EventArgs e)
+        {
+            gameStart = true;
+        }
+        private void computerTurn(int whosTurn)
+        {
+            if(whosTurn == 2)
+            {
+                //MonteCarlo here?
+                //cycle through choices and then draw the fillEllipse where it needs to be
+            }
         }
     }
 }
