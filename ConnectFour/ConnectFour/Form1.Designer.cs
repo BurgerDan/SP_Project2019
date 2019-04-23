@@ -37,7 +37,6 @@
             this.hardButt = new System.Windows.Forms.Button();
             this.turnLabel = new System.Windows.Forms.Label();
             this.turnDisplay = new System.Windows.Forms.TextBox();
-            this.playStart = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // PlayChoiceLabel
@@ -121,22 +120,11 @@
             this.turnDisplay.Size = new System.Drawing.Size(176, 22);
             this.turnDisplay.TabIndex = 0;
             // 
-            // playStart
-            // 
-            this.playStart.Location = new System.Drawing.Point(700, 34);
-            this.playStart.Name = "playStart";
-            this.playStart.Size = new System.Drawing.Size(62, 52);
-            this.playStart.TabIndex = 8;
-            this.playStart.Text = "PLAY";
-            this.playStart.UseVisualStyleBackColor = true;
-            this.playStart.Click += new System.EventHandler(this.playStart_Click);
-            // 
             // ConnectFour
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.playStart);
             this.Controls.Add(this.turnDisplay);
             this.Controls.Add(this.turnLabel);
             this.Controls.Add(this.hardButt);
@@ -166,7 +154,6 @@
         private System.Windows.Forms.Button hardButt;
         private System.Windows.Forms.Label turnLabel;
         private System.Windows.Forms.TextBox turnDisplay;
-        private System.Windows.Forms.Button playStart;
     }
 }
 
